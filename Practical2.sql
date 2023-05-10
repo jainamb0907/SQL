@@ -1,15 +1,16 @@
 CREATE TABLE Employees (
     EmployeeId INT IDENTITY(1,1) PRIMARY KEY,
-    FirstName varchar(255) NOT NULL,
-    DepartmentId INT,
-	Experince INT,
-    Salary DECIMAL(8,2)  
+    EmployeeName varchar(255) NOT NULL,
+	Experience INT,
+    Salary DECIMAL(8,2),
+    DepartmentId INT FOREIGN KEY REFERENCES Department(DepartmentId)	
 );
 GO
 
+
 --DROP TABLE Employees;
 
-INSERT INTO Employees(FirstName, DepartmentId, Experince, Salary)
+INSERT INTO Employees(EmployeeName, DepartmentId, Experience, Salary)
 VALUES 
 ('Akash', 3, 4, 35000),
 ('Jd', 2, 3, 67000),
@@ -46,7 +47,7 @@ SELECT * FROM Employees;
 SELECT * FROM Department;
 
 --Display empId,EmpName and DepartmentName using INNER JOIN
-SELECT EmployeeId,DepartmentName, FirstName   
+SELECT EmployeeId,DepartmentName, EmployeeName   
 FROM Employees Emp
 INNER JOIN Department Dept  
 ON Emp.DepartmentId = Dept.DepartmentId; 
@@ -68,23 +69,22 @@ ON Emp.DepartmentId = Dept.DepartmentId GROUP BY DepartmentName;
 GO
  
 --Display employee name in the ascending order of department name using ORDER BY 
-SELECT DepartmentName, FirstName
+SELECT DepartmentName, EmployeeName
 FROM Employees Emp
 INNER JOIN Department Dept  
 ON Emp.DepartmentId = Dept.DepartmentId ORDER BY DepartmentName;
 GO
 
 --Display employeeName and grade using Case
-SELECT FirstName,  
+SELECT EmployeeName,  
 CASE  
-WHEN Experince> 10 THEN 'Expert'  
-WHEN Experince> 7 AND Experince <= 10 THEN 'Advanced'  
-WHEN Experince> 5 AND Experince <= 7 THEN 'Intermediate'  
-WHEN Experince> 2 AND Experince <=5 THEN 'Beginner'  
+WHEN Experience> 10 THEN 'Expert'  
+WHEN Experience> 7 AND Experience <= 10 THEN 'Advanced'  
+WHEN Experience> 5 AND Experience <= 7 THEN 'Intermediate'  
+WHEN Experience> 2 AND Experience <=5 THEN 'Beginner'  
 ELSE 'Novice'
 END AS Grade
 FROM Employees; 
-
 
 
 
